@@ -99,10 +99,10 @@ class LoadVideo(LoadSample):
 
             st = time.time()
             for _ in range(self.stride):
-                self.cap.grab()
-            ret, im = self.cap.retrieve()
+                cap.grab()
+            ret, im = cap.retrieve()
             while not ret:
-                self.cap.release()
+                cap.release()
                 break
 
             self.img = im
@@ -130,6 +130,7 @@ class LoadVideo(LoadSample):
             StopIteration: If the video ends or 'q' is pressed.
         """
         if cv2.waitKey(1) == ord('q'):
+            self.cap.release()
             cv2.destroyAllWindows()
             raise StopIteration("User Stop Video")
 
