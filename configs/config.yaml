@@ -1,0 +1,72 @@
+# Environments
+#ENV:
+#  DEVICE: cuda     # cuda, cpu
+#  GPU_NUM: 0
+
+# Media
+#MEDIA:
+#  SOURCE: 0
+#  OPT_AUTO: False
+#  FOURCC: "MJPG"
+#  WIDTH: 1280
+#  HEIGHT: 720
+#  FPS: 30
+#  REALTIME: False
+#  BGR: True
+#  ENABLE_PARAM: False
+#  CV_PARAM:
+#    - cv2.CAP_PROP_AUTO_EXPOSURE: 1
+#    - cv2.CAP_PROP_BRIGHTNESS: 128
+#    - cv2.CAP_PROP_EXPOSURE: 50
+
+# Object Detector
+#DET:
+#  MODEL_TYPE: yolov8
+#  DET_MODEL_PATH: './weights/yolov8/yolov8m.pt'
+#  HALF: True
+#  CONF_THRES: 0.5
+#  OBJ_CLASSES: [0]
+#  YOLO:
+#    IMG_SIZE: 640
+#    NMS_IOU: 0.45
+#    AGNOSTIC_NMS: True
+#    MAX_DET: 100
+
+
+# Object Tracker
+#TRACK:
+#  TRACK_USE_ENCODER: false
+#  TRACK_MODEL_TYPE: "deepocsort"
+#  TRACK_MODEL_PATH: "./weights/osnet_x0_25_market1501.pt"
+#  TRACK_HALF: false
+
+# =========================
+# Logging Configuration
+# =========================
+LOG:
+  # 로그의 레벨을 지정합니다. 선택 가능한 값: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  LOG_LEVEL: 'debug'
+
+  # 로거의 이름을 지정합니다. 여러 로거를 사용할 때 구분 용도로 사용됩니다.
+  LOGGER_NAME: "tracker"
+
+  # 콘솔에 로그를 출력할지 여부를 설정합니다. true/false
+  CONSOLE_LOG: true
+
+  # 영상 분석 콘솔 로그 주기
+  CONSOLE_LOG_INTERVAL: 100
+
+  # 로그를 파일로 저장할지 여부를 설정합니다. true/false
+  FILE_LOG: true
+
+  # 로그 파일이 저장될 디렉토리 경로를 설정합니다.
+  FILE_LOG_DIR: './log/'
+
+  # 로그 파일 회전 시 백업 파일의 최대 개수를 설정합니다.
+  FILE_LOG_COUNTER: 30
+
+  # 로그 파일 회전 주기 설정입니다. 가능한 값: 'S'(초), 'M'(분), 'H'(시간), 'D'(일)
+  FILE_LOG_ROTATE_TIME: "D"
+
+  # 로그 파일 회전 간격 설정입니다. FILE_LOG_ROTATE_TIME과 함께 사용됩니다.
+  FILE_LOG_ROTATE_INTERVAL: 1
