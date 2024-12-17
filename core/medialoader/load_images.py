@@ -126,6 +126,6 @@ if __name__ == "__main__":
     loader = LoadImages('./data/images/')
     for img in loader:
         cv2.imshow('Loaded Image', img)
-        if cv2.waitKey(1) == ord('q'):
+        if cv2.waitKey(0) == ord('q'):
             break
     cv2.destroyAllWindows()
