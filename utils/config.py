@@ -17,16 +17,16 @@ def set_config(file):
     # config.gpu_num = _config['ENV']['GPU_NUM']
 
     # Media
-    # config.media_source = str(_config['MEDIA']['SOURCE'])
-    # config.media_opt_auto = _config['MEDIA']['OPT_AUTO']
-    # config.media_fourcc = _config['MEDIA']['FOURCC']
-    # config.media_width = _config['MEDIA']['WIDTH']
-    # config.media_height = _config['MEDIA']['HEIGHT']
-    # config.media_fps = _config['MEDIA']['FPS']
-    # config.media_realtime = _config['MEDIA']['REALTIME']
-    # config.media_bgr = _config['MEDIA']['BGR']
-    # config.media_enable_param = _config['MEDIA']['ENABLE_PARAM']
-    # config.media_cv2_params = _config['MEDIA']['CV_PARAM']
+    config.media_source = str(_config['MEDIA']['SOURCE'])
+    config.media_opt_auto = _config['MEDIA']['OPT_AUTO']
+    config.media_fourcc = _config['MEDIA']['FOURCC']
+    config.media_width = _config['MEDIA']['WIDTH']
+    config.media_height = _config['MEDIA']['HEIGHT']
+    config.media_fps = _config['MEDIA']['FPS']
+    config.media_realtime = _config['MEDIA']['REALTIME']
+    config.media_bgr = _config['MEDIA']['BGR']
+    config.media_enable_param = _config['MEDIA']['ENABLE_PARAM']
+    config.media_cv2_params = _config['MEDIA']['CV_PARAM']
 
     # Det
     # config.det_model_type = _config['DET']['MODEL_TYPE']
