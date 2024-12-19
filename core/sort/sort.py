@@ -1,6 +1,6 @@
 import numpy as np
 
-from sort_utils import iou_batch
+from .sort_utils import iou_batch
 from .kalman_tracker import KalmanBoxTracker
 
 
