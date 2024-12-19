@@ -34,9 +34,9 @@ class ObjectTracker(object):
         if self.tracker_type == 'sort':
             from core.sort import Sort
             self.tracker = Sort(
-                max_age=1,
-                min_hits=3,
-                iou_threshold=0.3,
+                max_age=cfg.sort_max_age,
+                min_hits=cfg.sort_min_hits,
+                iou_threshold=cfg.sort_iou_thres,
             )
 
         # logging
