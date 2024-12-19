@@ -39,6 +39,10 @@ class ObjectTracker(object):
                 iou_threshold=0.3,
             )
 
+        # logging
+        self.f_cnt = 0
+        self.t = 0
+
     def track(self, dets):
         """
         Tracks objects in the current frame using the initialized tracker.
@@ -49,10 +53,20 @@ class ObjectTracker(object):
         Returns:
             numpy.ndarray: Array of tracked objects in the format [x1, y1, x2, y2, tracking_id].
         """
+        t0 = time.time()
         if self.tracker_type == 'sort':
             ret = self.tracker.update(dets)
-            return ret
+        t1 = time.time()
 
+        # calculate time & logging
+        self.f_cnt += 1
+        self.t += t1 - t0
+        if self.f_cnt % self.cfg.console_log_interval == 0:
+            self.logger.debug(
+                f"{self.tracker_type} tracker {self.f_cnt} Frames average time - "
+                f"track: {self.t / self.f_cnt:.6f} sec /")
+
+        return ret
 
 if __name__ == "__main__":
     import time
