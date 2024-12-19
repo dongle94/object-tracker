@@ -34,11 +34,15 @@ DET:
 
 
 # Object Tracker
-#TRACK:
+TRACK:
+  TRACK_MODEL_TYPE: "sort"
 #  TRACK_USE_ENCODER: false
-#  TRACK_MODEL_TYPE: "deepocsort"
 #  TRACK_MODEL_PATH: "./weights/osnet_x0_25_market1501.pt"
 #  TRACK_HALF: false
+  SORT:
+    MAX_AGE: 1
+    MIN_HITS: 3
+    IOU_THRES: 0.3
 
 # =========================
 # Logging Configuration
