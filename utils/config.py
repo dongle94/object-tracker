@@ -45,6 +45,10 @@ def set_config(file):
     # config.track_use_encoder = _config['TRACK']['TRACK_USE_ENCODER']
     # config.track_model_path = _config['TRACK']['TRACK_MODEL_PATH']
     # config.track_half = _config['TRACK']['TRACK_HALF']
+    # SORT
+    config.sort_max_age = _config['TRACK']['SORT']['MAX_AGE']
+    config.sort_min_hits = _config['TRACK']['SORT']['MIN_HITS']
+    config.sort_iou_thres = _config['TRACK']['SORT']['IOU_THRES']
 
     # Logger
     if 'LOG' not in _config:
