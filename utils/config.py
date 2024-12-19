@@ -41,8 +41,8 @@ def set_config(file):
     config.yolo_max_det = _config['DET']['YOLO']['MAX_DET']
 
     # TRACKER
+    config.track_model_type = _config['TRACK']['TRACK_MODEL_TYPE']
     # config.track_use_encoder = _config['TRACK']['TRACK_USE_ENCODER']
-    # config.track_model_type = _config['TRACK']['TRACK_MODEL_TYPE']
     # config.track_model_path = _config['TRACK']['TRACK_MODEL_PATH']
     # config.track_half = _config['TRACK']['TRACK_HALF']
 
