@@ -13,8 +13,8 @@ def set_config(file):
         _config = yaml.load(f, Loader=yaml.FullLoader)
 
     # Env
-    # config.device = _config['ENV']['DEVICE']
-    # config.gpu_num = _config['ENV']['GPU_NUM']
+    config.device = _config['ENV']['DEVICE']
+    config.gpu_num = _config['ENV']['GPU_NUM']
 
     # Media
     config.media_source = str(_config['MEDIA']['SOURCE'])
@@ -29,16 +29,16 @@ def set_config(file):
     config.media_cv2_params = _config['MEDIA']['CV_PARAM']
 
     # Det
-    # config.det_model_type = _config['DET']['MODEL_TYPE']
-    # config.det_model_path = _config['DET']['DET_MODEL_PATH']
-    # config.det_half = _config['DET']['HALF']
-    # config.det_conf_thres = _config['DET']['CONF_THRES']
-    # config.det_obj_classes = eval(str(_config['DET']['OBJ_CLASSES']))
+    config.det_model_type = _config['DET']['MODEL_TYPE']
+    config.det_model_path = _config['DET']['DET_MODEL_PATH']
+    config.det_half = _config['DET']['HALF']
+    config.det_conf_thres = _config['DET']['CONF_THRES']
+    config.det_obj_classes = eval(str(_config['DET']['OBJ_CLASSES']))
     # # YOLO
-    # config.yolo_img_size = _config['DET']['YOLO']['IMG_SIZE']
-    # config.yolo_nms_iou = _config['DET']['YOLO']['NMS_IOU']
-    # config.yolo_agnostic_nms = _config['DET']['YOLO']['AGNOSTIC_NMS']
-    # config.yolo_max_det = _config['DET']['YOLO']['MAX_DET']
+    config.yolo_img_size = _config['DET']['YOLO']['IMG_SIZE']
+    config.yolo_nms_iou = _config['DET']['YOLO']['NMS_IOU']
+    config.yolo_agnostic_nms = _config['DET']['YOLO']['AGNOSTIC_NMS']
+    config.yolo_max_det = _config['DET']['YOLO']['MAX_DET']
 
     # TRACKER
     # config.track_use_encoder = _config['TRACK']['TRACK_USE_ENCODER']
