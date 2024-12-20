@@ -41,7 +41,9 @@ class ObjectTracker(object):
                 iou_threshold=cfg.sort_iou_thres,
             )
 
-        self.persons = {}
+        self.people = {}
+        self.max_bbox_history = cfg.person_max_bbox_history
+        self.person_timeout = cfg.person_timeout_sec
 
         # logging
         self.f_cnt = 0
@@ -65,14 +67,14 @@ class ObjectTracker(object):
         for tracklet in ret:
             x1, y1, x2, y2, tracking_id = tracklet
             bbox = [x1, y1, x2, y2]
-            person = self.persons.get(tracking_id) or Person(tracking_id)
+            person = self.people.get(tracking_id) or Person(tracking_id, max_bbox_history=self.max_bbox_history)
             person.update(bbox)
-            self.persons[tracking_id] = person
+            self.people[tracking_id] = person
 
-        # Clean up inactive persons
-        removed_ids = Person.clean_up(timeout=timedelta(seconds=30))
+        # Clean up inactive people
+        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout))
         for removed_id in removed_ids:
-            self.persons.pop(removed_id, None)
+            self.people.pop(removed_id, None)
 
         t1 = time.time()
 
