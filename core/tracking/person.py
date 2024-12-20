@@ -103,6 +103,11 @@ class Person:
         """
         return cls._instances
 
+    def __repr__(self):
+        return (f"First seen: {self.first_seen_time.strftime('%Y-%m-%d %H:%M:%S')}, "
+                f"Last seen: {self.last_seen_time.strftime('%Y-%m-%d %H:%M:%S')}, "
+                f"Last box: {self.get_recent_bboxes(1)}")
+
 
 if __name__ == '__main__':
     from datetime import timedelta
@@ -143,7 +148,7 @@ if __name__ == '__main__':
 
     # Step 6: Check active instances
     active_instances = Person.get_instances()
-    print(f"Active tracking IDs: {list(active_instances.keys())}")
+    print(f"Active tracking: {active_instances}")
 
     # Step 7: Create a new `Person` instance after cleanup
     new_person = Person(103)
