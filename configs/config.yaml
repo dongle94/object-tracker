@@ -39,6 +39,9 @@ TRACK:
 #  TRACK_USE_ENCODER: false
 #  TRACK_MODEL_PATH: "./weights/osnet_x0_25_market1501.pt"
 #  TRACK_HALF: false
+  PERSON:
+    MAX_BBOX_HISTORY: 100
+    TIMEOUT_SEC: 30
   SORT:
     MAX_AGE: 1
     MIN_HITS: 3

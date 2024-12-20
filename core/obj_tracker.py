@@ -1,4 +1,5 @@
 import sys
+from datetime import timedelta
 from pathlib import Path
 
 FILE = Path(__file__).resolve()
@@ -7,6 +8,7 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 from utils.logger import get_logger
+from core.tracking.person import Person
 
 
 class ObjectTracker(object):
@@ -39,6 +41,10 @@ class ObjectTracker(object):
                 iou_threshold=cfg.sort_iou_thres,
             )
 
+        self.people = {}
+        self.max_bbox_history = cfg.person_max_bbox_history
+        self.person_timeout = cfg.person_timeout_sec
+
         # logging
         self.f_cnt = 0
         self.t = 0
@@ -56,6 +62,20 @@ class ObjectTracker(object):
         t0 = time.time()
         if self.tracker_type == 'sort':
             ret = self.tracker.update(dets)
+
+        # Update or create Person instances
+        for tracklet in ret:
+            x1, y1, x2, y2, tracking_id = tracklet
+            bbox = [x1, y1, x2, y2]
+            person = self.people.get(tracking_id) or Person(tracking_id, max_bbox_history=self.max_bbox_history)
+            person.update(bbox)
+            self.people[tracking_id] = person
+
+        # Clean up inactive people
+        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout))
+        for removed_id in removed_ids:
+            self.people.pop(removed_id, None)
+
         t1 = time.time()
 
         # calculate time & logging
@@ -103,18 +123,18 @@ if __name__ == "__main__":
         _det = _detector.run(frame)
 
         for d in _det:
-            x1, y1, x2, y2 = map(int, d[:4])
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (96, 96, 216), thickness=2, lineType=cv2.LINE_AA)
+            _x1, _y1, _x2, _y2 = map(int, d[:4])
+            cv2.rectangle(frame, (_x1, _y1), (_x2, _y2), (96, 96, 216), thickness=2, lineType=cv2.LINE_AA)
 
         # tracking update
         if len(_det):
             track_ret = _tracker.track(_det)
             for t in track_ret:
-                x1, y1, x2, y2 = map(int, t[:4])
-                tracking_id = int(t[4])
-                color = get_color_for_id(tracking_id)
-                cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), color, thickness=2)
-                cv2.putText(frame, f"ID: {int(tracking_id)}", (int(x1), int(y1) - 10),
+                _x1, _y1, _x2, _y2 = map(int, t[:4])
+                _tracking_id = int(t[4])
+                color = get_color_for_id(_tracking_id)
+                cv2.rectangle(frame, (_x1, _y1), (_x2, _y2), color, thickness=2)
+                cv2.putText(frame, f"ID: {_tracking_id}", (_x1, _y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, thickness=1)
 
         et = time.time()
