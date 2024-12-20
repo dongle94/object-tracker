@@ -45,6 +45,9 @@ def set_config(file):
     # config.track_use_encoder = _config['TRACK']['TRACK_USE_ENCODER']
     # config.track_model_path = _config['TRACK']['TRACK_MODEL_PATH']
     # config.track_half = _config['TRACK']['TRACK_HALF']
+    # PERSON
+    config.person_max_bbox_history = _config['TRACK']['PERSON']['MAX_BBOX_HISTORY']
+    config.person_timeout_sec = _config['TRACK']['PERSON']['TIMEOUT_SEC']
     # SORT
     config.sort_max_age = _config['TRACK']['SORT']['MAX_AGE']
     config.sort_min_hits = _config['TRACK']['SORT']['MIN_HITS']
