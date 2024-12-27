@@ -36,6 +36,7 @@ class Extractor(object):
             _im = cv2.resize(_im, self.size)
             _im = self.norm(_im)
             _im = _im.unsqueeze(0)
+            inps.append(_im)
 
         im_batch = torch.cat(inps, dim=0).float()
         return im_batch
