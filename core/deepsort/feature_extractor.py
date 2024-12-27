@@ -3,7 +3,7 @@ import torchvision.transforms as transforms
 import numpy as np
 import cv2
 
-from .model import Net
+from model import Net
 
 
 class Extractor(object):
@@ -30,10 +30,14 @@ class Extractor(object):
             4. normalize
         """
 
-        def _resize(im, size):
-            return cv2.resize(im.astype(np.float32) / 255., size)
+        inps = []
+        for im in im_crops:
+            _im = im.astype(np.float32) / 255
+            _im = cv2.resize(_im, self.size)
+            _im = self.norm(_im)
+            _im = _im.unsqueeze(0)
 
-        im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
+        im_batch = torch.cat(inps, dim=0).float()
         return im_batch
 
     def __call__(self, im_crops):
@@ -45,7 +49,7 @@ class Extractor(object):
 
 
 if __name__ == '__main__':
-    img = cv2.imread("demo.jpg")[:, :, (2, 1, 0)]
+    img = cv2.imread("data/images/army.jpg")[:, :, (2, 1, 0)]
     extr = Extractor("weights/deepsort/ckpt.t7")
-    feature = extr(img)
+    feature = extr([img])
     print(feature.shape)
