@@ -12,7 +12,6 @@ class Extractor(object):
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
         state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)['net_dict']
         self.net.load_state_dict(state_dict)
-        print("Loading weights from {}... Done!".format(model_path))
         self.net.to(self.device)
         self.size = (64, 128)
         self.norm = transforms.Compose([
