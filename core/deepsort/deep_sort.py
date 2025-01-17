@@ -1,10 +1,17 @@
+import sys
 import numpy as np
+from pathlib import Path
 
-from deep.feature_extractor import Extractor
-from sort.nn_matching import NearestNeighborDistanceMetric
-from sort.preprocessing import non_max_suppression
-from sort.detection import Detection
-from sort.tracker import Tracker
+FILE = Path(__file__).resolve()
+ROOT = FILE.parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.append(str(ROOT))
+
+from core.deepsort.deep.feature_extractor import Extractor
+from core.deepsort.sort.nn_matching import NearestNeighborDistanceMetric
+from core.deepsort.sort.preprocessing import non_max_suppression
+from core.deepsort.sort.detection import Detection
+from core.deepsort.sort.tracker import Tracker
 from utils.logger import get_logger
 
 
