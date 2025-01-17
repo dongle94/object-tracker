@@ -9,17 +9,16 @@ from utils.logger import get_logger
 
 
 class DeepSort(object):
-    def __init__(self, model_path, max_dist=0.2, bb_budget=100, use_cuda=True):
+    def __init__(self, model_path, max_dist=0.2, nn_budget=100, use_cuda=True):
 
         self.logger = get_logger()
-        self.min_confidence = 0.3
         self.nms_max_overlap = 1.0
 
         self.extractor = Extractor(model_path, use_cuda=use_cuda)
         print(f"Loading weights from {model_path}... Done!")
 
         self.max_cosine_distance = max_dist
-        self.nn_budget = bb_budget
+        self.nn_budget = nn_budget
         metric = NearestNeighborDistanceMetric("cosine", self.max_cosine_distance, self.nn_budget)
         self.tracker = Tracker(metric)
 
@@ -108,7 +107,7 @@ if __name__ == "__main__":
     _tracker = DeepSort(
         model_path='./weights/deepsort/ckpt.t7',
         max_dist=0.2,
-        bb_budget=100,
+        nn_budget=100,
         use_cuda=True
     )
 
