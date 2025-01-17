@@ -66,12 +66,14 @@ class ObjectTracker(object):
         If the tracker type is 'deepsort', it uses DeepSort to update states based on appearance features.
 
         Args:
-            dets (numpy.ndarray or list): Array of detections in the format [x1, y1, x2, y2, score, class].
+            dets (numpy.ndarray or list): Array of detections in the format
+                [x1, y1, x2, y2, score, class].
+                Each detection contains bounding box coordinates and optional detection score and class.
             frame (np.ndarray): The current video frame in BGR format. Required only for DeepSort.
 
         Returns:
             numpy.ndarray: Array of tracked objects in the format [x1, y1, x2, y2, tracking_id].
-            If no objects are tracked, returns an empty array.
+                If no objects are tracked, returns an empty array.
 
         Raises:
             ValueError: If the tracker type is unsupported.
