@@ -56,29 +56,29 @@ TRACK:
 # Logging Configuration
 # =========================
 LOG:
-  # 로그의 레벨을 지정합니다. 선택 가능한 값: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  # Specify the logging level. Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
   LOG_LEVEL: 'debug'
 
-  # 로거의 이름을 지정합니다. 여러 로거를 사용할 때 구분 용도로 사용됩니다.
+  # Name of the logger. Useful when using multiple loggers.
   LOGGER_NAME: "tracker"
 
-  # 콘솔에 로그를 출력할지 여부를 설정합니다. true/false
+  # Enable or disable logging to the console. true/false
   CONSOLE_LOG: true
 
-  # 영상 분석 콘솔 로그 주기
+  # Interval for console log during video analysis
   CONSOLE_LOG_INTERVAL: 100
 
-  # 로그를 파일로 저장할지 여부를 설정합니다. true/false
+  # Enable or disable saving logs to a file. true/false
   FILE_LOG: true
 
-  # 로그 파일이 저장될 디렉토리 경로를 설정합니다.
+  # Directory path for saving log files.
   FILE_LOG_DIR: './log/'
 
-  # 로그 파일 회전 시 백업 파일의 최대 개수를 설정합니다.
+  # Maximum number of backup files for log rotation.
   FILE_LOG_COUNTER: 30
 
-  # 로그 파일 회전 주기 설정입니다. 가능한 값: 'S'(초), 'M'(분), 'H'(시간), 'D'(일)
+  # Log rotation frequency. Options: 'S'(seconds), 'M'(minutes), 'H'(hours), 'D'(days)
   FILE_LOG_ROTATE_TIME: "D"
 
-  # 로그 파일 회전 간격 설정입니다. FILE_LOG_ROTATE_TIME과 함께 사용됩니다.
+  # Interval for log rotation, used with FILE_LOG_ROTATE_TIME.
   FILE_LOG_ROTATE_INTERVAL: 1
