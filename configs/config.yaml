@@ -35,7 +35,7 @@ DET:
 
 # Object Tracker
 TRACK:
-  TRACK_MODEL_TYPE: "sort"
+  TRACK_MODEL_TYPE: "deepsort"
 #  TRACK_USE_ENCODER: false
 #  TRACK_MODEL_PATH: "./weights/osnet_x0_25_market1501.pt"
 #  TRACK_HALF: false
