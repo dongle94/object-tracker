@@ -46,6 +46,11 @@ TRACK:
     MAX_AGE: 1
     MIN_HITS: 3
     IOU_THRES: 0.3
+  DEEPSORT:
+    MODEL_PATH: "./weights/deepsort/ckpt.t7"
+    MAX_DIST: 0.2
+    NN_BUDGET: 100
+    USE_CUDA: True
 
 # =========================
 # Logging Configuration

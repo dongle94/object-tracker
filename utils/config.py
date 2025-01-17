@@ -52,6 +52,11 @@ def set_config(file):
     config.sort_max_age = _config['TRACK']['SORT']['MAX_AGE']
     config.sort_min_hits = _config['TRACK']['SORT']['MIN_HITS']
     config.sort_iou_thres = _config['TRACK']['SORT']['IOU_THRES']
+    # DEEPSORT
+    config.deepsort_model_path = _config['DET']['DEEPSORT']['DETECTOR_MODEL_PATH']
+    config.deepsort_max_dist = _config['TRACK']['DEEPSORT']['MAX_DIST']
+    config.deepsort_nn_budget = _config['TRACK']['DEEPSORT']['NN_BUDGET']
+    config.deepsort_use_cuda = _config['TRACK']['DEEPSORT']['USE_CUDA']
 
     # Logger
     if 'LOG' not in _config:
