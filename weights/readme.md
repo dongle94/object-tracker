@@ -25,6 +25,7 @@
 
 
 ### Object Tracker
+- **DeepSort** pytorch model: [Google Drive](https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6)
 
 [//]: # (#### OSNET)
 

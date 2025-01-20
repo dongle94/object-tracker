@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 from datetime import timedelta
 from pathlib import Path
 
@@ -40,6 +41,14 @@ class ObjectTracker(object):
                 min_hits=cfg.sort_min_hits,
                 iou_threshold=cfg.sort_iou_thres,
             )
+        elif self.tracker_type == 'deepsort':
+            from core.deepsort import DeepSort
+            self.tracker = DeepSort(
+                model_path=cfg.deepsort_model_path,
+                max_dist=cfg.deepsort_max_dist,
+                nn_budget=cfg.deepsort_nn_budget,
+                use_cuda=cfg.deepsort_use_cuda
+            )
 
         self.people = {}
         self.max_bbox_history = cfg.person_max_bbox_history
@@ -49,19 +58,33 @@ class ObjectTracker(object):
         self.f_cnt = 0
         self.t = 0
 
-    def track(self, dets):
+    def track(self, dets, frame: np.ndarray = None):
         """
-        Tracks objects in the current frame using the initialized tracker.
+        Tracks objects in the given frame using the specified tracker.
+
+        If the tracker type is 'sort', it uses the SORT algorithm to predict and update object states.
+        If the tracker type is 'deepsort', it uses DeepSort to update states based on appearance features.
 
         Args:
-            dets (numpy.ndarray or list): Array of detections in the format [x1, y1, x2, y2, score, class].
+            dets (numpy.ndarray or list): Array of detections in the format
+                [x1, y1, x2, y2, score, class].
+                Each detection contains bounding box coordinates and optional detection score and class.
+            frame (np.ndarray): The current video frame in BGR format. Required only for DeepSort.
 
         Returns:
             numpy.ndarray: Array of tracked objects in the format [x1, y1, x2, y2, tracking_id].
+                If no objects are tracked, returns an empty array.
+
+        Raises:
+            ValueError: If the tracker type is unsupported.
         """
         t0 = time.time()
         if self.tracker_type == 'sort':
             ret = self.tracker.update(dets)
+        elif self.tracker_type == 'deepsort':
+            ret = self.tracker.update(dets, frame)
+        else:
+            raise ValueError(f"Unsupported tracker type: {self.tracker_type}")
 
         # Update or create Person instances
         for tracklet in ret:
@@ -118,23 +141,23 @@ if __name__ == "__main__":
 
     while True:
         st = time.time()
-        frame = media_loader.get_frame()
+        _frame = media_loader.get_frame()
 
-        _det = _detector.run(frame)
+        _det = _detector.run(_frame)
 
         for d in _det:
             _x1, _y1, _x2, _y2 = map(int, d[:4])
-            cv2.rectangle(frame, (_x1, _y1), (_x2, _y2), (96, 96, 216), thickness=2, lineType=cv2.LINE_AA)
+            cv2.rectangle(_frame, (_x1, _y1), (_x2, _y2), (96, 96, 216), thickness=2, lineType=cv2.LINE_AA)
 
         # tracking update
         if len(_det):
-            track_ret = _tracker.track(_det)
+            track_ret = _tracker.track(_det, _frame)
             for t in track_ret:
                 _x1, _y1, _x2, _y2 = map(int, t[:4])
                 _tracking_id = int(t[4])
                 color = get_color_for_id(_tracking_id)
-                cv2.rectangle(frame, (_x1, _y1), (_x2, _y2), color, thickness=2)
-                cv2.putText(frame, f"ID: {_tracking_id}", (_x1, _y1 - 10),
+                cv2.rectangle(_frame, (_x1, _y1), (_x2, _y2), color, thickness=2)
+                cv2.putText(_frame, f"ID: {_tracking_id}", (_x1, _y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, thickness=1)
 
         et = time.time()
@@ -143,7 +166,7 @@ if __name__ == "__main__":
         else:
             delay = int(max(1, (wt - (et - st)) * 1000)) if et - st < wt else 1
 
-        cv2.imshow('_', frame)
+        cv2.imshow('_', _frame)
         if cv2.waitKey(delay) == ord('q'):
             print("-- CV2 Stop --")
             break

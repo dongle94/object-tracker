@@ -5,6 +5,7 @@ with ongoing updates to include advanced tracking methods.
 
 ## Supported Tracking Algorithms
 - **SORT (Simple Online and Realtime Tracking)**: Efficient and widely used tracking algorithm implemented in this repository.
+- **DeepSORT (Deep Learning-based SORT)**: Advanced version of SORT that leverages appearance features for robust tracking.
 
 ## Installation
 
@@ -23,3 +24,5 @@ To set up the environment and run the project:
 
 ## References
 - **SORT Algorithm**: Original implementation by [abewley](https://github.com/abewley/sort).
+- **DeepSORT Algorithm**: Original implementation by [nwojke](https://github.com/nwojke/deep_sort).
+  - **Pytorch Version**: [ModelBunker](https://github.com/ModelBunker/Deep-SORT-PyTorch)
