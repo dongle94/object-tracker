@@ -49,6 +49,16 @@ class ObjectTracker(object):
                 nn_budget=cfg.deepsort_nn_budget,
                 use_cuda=cfg.deepsort_use_cuda
             )
+        elif self.tracker_type == 'bytetrack':
+            from core.ByteTrack import BYTETracker
+            self.tracker = BYTETracker(
+                track_thresh=cfg.bytetrack_track_thres,
+                track_buffer=cfg.bytetrack_track_buffer,
+                match_thresh=cfg.bytetrack_match_thres,
+                mot20=False,
+                frame_rate=cfg.bytetrack_frame_rate,
+            )
+        self.logger.info(f"Successfully loaded {self.tracker_type} tracker")
 
         self.people = {}
         self.max_bbox_history = cfg.person_max_bbox_history
@@ -83,6 +93,8 @@ class ObjectTracker(object):
             ret = self.tracker.update(dets)
         elif self.tracker_type == 'deepsort':
             ret = self.tracker.update(dets, frame)
+        elif self.tracker_type == 'bytetrack':
+            ret = self.tracker.update(dets, frame.shape[:2], frame.shape[:2])
         else:
             raise ValueError(f"Unsupported tracker type: {self.tracker_type}")
 
@@ -95,7 +107,7 @@ class ObjectTracker(object):
             self.people[tracking_id] = person
 
         # Clean up inactive people
-        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout))
+        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout), verbose=self.cfg.person_verbose)
         for removed_id in removed_ids:
             self.people.pop(removed_id, None)
 

@@ -48,6 +48,7 @@ def set_config(file):
     # PERSON
     config.person_max_bbox_history = _config['TRACK']['PERSON']['MAX_BBOX_HISTORY']
     config.person_timeout_sec = _config['TRACK']['PERSON']['TIMEOUT_SEC']
+    config.person_verbose = _config['TRACK']['PERSON']['VERBOSE']
     # SORT
     config.sort_max_age = _config['TRACK']['SORT']['MAX_AGE']
     config.sort_min_hits = _config['TRACK']['SORT']['MIN_HITS']
@@ -57,6 +58,11 @@ def set_config(file):
     config.deepsort_max_dist = _config['TRACK']['DEEPSORT']['MAX_DIST']
     config.deepsort_nn_budget = _config['TRACK']['DEEPSORT']['NN_BUDGET']
     config.deepsort_use_cuda = _config['TRACK']['DEEPSORT']['USE_CUDA']
+    # BYTETRACK
+    config.bytetrack_track_thres = _config['TRACK']['BYTETRACK']['TRACK_THRES']
+    config.bytetrack_track_buffer = _config['TRACK']['BYTETRACK']['TRACK_BUFFER']
+    config.bytetrack_match_thres = _config['TRACK']['BYTETRACK']['MATCH_THRES']
+    config.bytetrack_frame_rate = _config['TRACK']['BYTETRACK']['FRAME_RATE']
 
     # Logger
     if 'LOG' not in _config:
