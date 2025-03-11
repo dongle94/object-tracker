@@ -57,6 +57,11 @@ def set_config(file):
     config.deepsort_max_dist = _config['TRACK']['DEEPSORT']['MAX_DIST']
     config.deepsort_nn_budget = _config['TRACK']['DEEPSORT']['NN_BUDGET']
     config.deepsort_use_cuda = _config['TRACK']['DEEPSORT']['USE_CUDA']
+    # BYTETRACK
+    config.bytetrack_track_thres = _config['TRACK']['BYTETRACK']['TRACK_THRES']
+    config.bytetrack_track_buffer = _config['TRACK']['BYTETRACK']['TRACK_BUFFER']
+    config.bytetrack_match_thres = _config['TRACK']['BYTETRACK']['MATCH_THRES']
+    config.bytetrack_frame_rate = _config['TRACK']['BYTETRACK']['FRAME_RATE']
 
     # Logger
     if 'LOG' not in _config:

@@ -35,7 +35,7 @@ DET:
 
 # Object Tracker
 TRACK:
-  TRACK_MODEL_TYPE: "deepsort"
+  TRACK_MODEL_TYPE: "bytetrack"  # 'sort', 'deepsort', 'bytetrack'
 #  TRACK_USE_ENCODER: false
 #  TRACK_MODEL_PATH: "./weights/osnet_x0_25_market1501.pt"
 #  TRACK_HALF: false
@@ -51,6 +51,12 @@ TRACK:
     MAX_DIST: 0.2
     NN_BUDGET: 100
     USE_CUDA: True
+  BYTETRACK:
+    TRACK_THRES: 0.6
+    TRACK_BUFFER: 30
+    MATCH_THRES: 0.9
+    FRAME_RATE: 30
+
 
 # =========================
 # Logging Configuration
