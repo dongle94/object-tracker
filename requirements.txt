@@ -3,3 +3,4 @@
 -r requirements/optimization.txt
 -r requirements/sort.txt
 -r requirements/deepsort.txt
+-r requirements/bytetrack.txt
