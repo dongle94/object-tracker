@@ -107,7 +107,7 @@ class ObjectTracker(object):
             self.people[tracking_id] = person
 
         # Clean up inactive people
-        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout))
+        removed_ids = Person.clean_up(timeout=timedelta(seconds=self.person_timeout), verbose=self.cfg.person_verbose)
         for removed_id in removed_ids:
             self.people.pop(removed_id, None)
 

@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from collections import defaultdict, deque
 
+from utils.logger import get_logger
 
 class Person:
     """
@@ -74,13 +75,14 @@ class Person:
         return list(self.bbox_history)[-count:][::-1]
 
     @classmethod
-    def clean_up(cls, timeout=timedelta(seconds=30)):
+    def clean_up(cls, timeout=timedelta(seconds=30), verbose=False):
         """
         Cleans up stale instances of `Person` not updated within the timeout duration.
-
+        
         Args:
             timeout (timedelta): Duration after which to remove stale instances.
-
+            verbose (bool): If True, logs the IDs of removed instances.
+        
         Returns:
             list: List of removed tracking IDs.
         """
@@ -90,6 +92,8 @@ class Person:
             if now - person.last_seen_time > timeout
         ]
         for tracking_id in to_remove:
+            if verbose:
+                get_logger().debug(f"Removed ID: {tracking_id} /  {cls._instances[tracking_id]}")
             del cls._instances[tracking_id]
         return to_remove
 

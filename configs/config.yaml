@@ -41,7 +41,8 @@ TRACK:
 #  TRACK_HALF: false
   PERSON:
     MAX_BBOX_HISTORY: 100
-    TIMEOUT_SEC: 30
+    TIMEOUT_SEC: 3
+    VERBOSE: True
   SORT:
     MAX_AGE: 1
     MIN_HITS: 3

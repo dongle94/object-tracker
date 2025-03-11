@@ -48,6 +48,7 @@ def set_config(file):
     # PERSON
     config.person_max_bbox_history = _config['TRACK']['PERSON']['MAX_BBOX_HISTORY']
     config.person_timeout_sec = _config['TRACK']['PERSON']['TIMEOUT_SEC']
+    config.person_verbose = _config['TRACK']['PERSON']['VERBOSE']
     # SORT
     config.sort_max_age = _config['TRACK']['SORT']['MAX_AGE']
     config.sort_min_hits = _config['TRACK']['SORT']['MIN_HITS']
