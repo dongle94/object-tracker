@@ -6,6 +6,7 @@ with ongoing updates to include advanced tracking methods.
 ## Supported Tracking Algorithms
 - **SORT (Simple Online and Realtime Tracking)**: Efficient and widely used tracking algorithm implemented in this repository.
 - **DeepSORT (Deep Learning-based SORT)**: Advanced version of SORT that leverages appearance features for robust tracking.
+- **ByteTrack (Tracking by Associating Every Detection Box)**: A state-of-the-art tracker that leverages both high- and low-confidence detections to robustly associate objects across frames for enhanced tracking accuracy.
 
 ## Installation
 
@@ -26,3 +27,4 @@ To set up the environment and run the project:
 - **SORT Algorithm**: Original implementation by [abewley](https://github.com/abewley/sort).
 - **DeepSORT Algorithm**: Original implementation by [nwojke](https://github.com/nwojke/deep_sort).
   - **Pytorch Version**: [ModelBunker](https://github.com/ModelBunker/Deep-SORT-PyTorch)
+- **ByteTrack Algorithm**: Original implementation by [ifzhang](https://github.com/ifzhang/ByteTrack)
