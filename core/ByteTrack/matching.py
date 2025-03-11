@@ -58,13 +58,14 @@ def ious(atlbrs, btlbrs):
 
     :rtype ious np.ndarray
     """
-    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float)
+    ious = np.zeros((len(atlbrs), len(btlbrs)), dtype=np.float32)
     if ious.size == 0:
         return ious
 
+    # If you can't use bbox_overlaps of cython_bbox, use bbox_overlaps_numpy below.
     ious = bbox_ious(
-        np.ascontiguousarray(atlbrs, dtype=np.float),
-        np.ascontiguousarray(btlbrs, dtype=np.float)
+        np.ascontiguousarray(atlbrs, dtype=np.float64),
+        np.ascontiguousarray(btlbrs, dtype=np.float64)
     )
 
     return ious
@@ -90,6 +91,7 @@ def iou_distance(atracks, btracks):
 
     return cost_matrix
 
+
 def v_iou_distance(atracks, btracks):
     """
     Compute cost based on IoU
@@ -109,6 +111,7 @@ def v_iou_distance(atracks, btracks):
     cost_matrix = 1 - _ious
 
     return cost_matrix
+
 
 def embedding_distance(tracks, detections, metric='cosine'):
     """
@@ -179,3 +182,29 @@ def fuse_score(cost_matrix, detections):
     fuse_sim = iou_sim * det_scores
     fuse_cost = 1 - fuse_sim
     return fuse_cost
+
+
+def bbox_overlaps_numpy(boxes1, boxes2):
+    """
+    NumPy로 구현한 IoU 계산
+    """
+    area1 = (boxes1[:, 2] - boxes1[:, 0]) * (boxes1[:, 3] - boxes1[:, 1])
+    area2 = (boxes2[:, 2] - boxes2[:, 0]) * (boxes2[:, 3] - boxes2[:, 1])
+
+    ious = np.zeros((len(boxes1), len(boxes2)))
+
+    for i, box1 in enumerate(boxes1):
+        x_min = np.maximum(box1[0], boxes2[:, 0])
+        y_min = np.maximum(box1[1], boxes2[:, 1])
+        x_max = np.minimum(box1[2], boxes2[:, 2])
+        y_max = np.minimum(box1[3], boxes2[:, 3])
+
+        w = np.maximum(0, x_max - x_min)
+        h = np.maximum(0, y_max - y_min)
+
+        inter = w * h
+        union = area1[i] + area2 - inter
+
+        ious[i, :] = inter / union
+
+    return ious
